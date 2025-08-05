@@ -13,4 +13,4 @@ phases:
   post_build:
     commands:
       - echo Pushing Docker image to ECR...
-      - docker push <657103446220.dkr.ecr.$us-east-1.amazonaws.com/savi-api:latest
+      - docker push <657103446220.dkr.ecr.us-east-1.amazonaws.com/savi-api:latest
