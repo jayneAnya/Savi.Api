@@ -80,8 +80,8 @@ public class Program
         builder.Services.AddAppSettingsConfig(builder.Configuration, builder.Environment);
         builder.Services.AddHttpContextAccessor();
         var config = configuration.GetConnectionString("DefaultConnection");
-        builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(config));
-        builder.Services.AddHangfireServer();
+        //builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(config));
+        //builder.Services.AddHangfireServer();
 
         //Entityframework
         //builder.Services.AddDbContext<SaviDbContext>(options =>
@@ -185,13 +185,13 @@ public class Program
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         // app.ConfigureExceptionHandler(logger);
         // Create a scope and resolve the SaviDbContext
-        using(var scope = app.Services.CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<SaviDbContext>();
+        //using(var scope = app.Services.CreateScope())
+        //{
+        //    var dbContext = scope.ServiceProvider.GetRequiredService<SaviDbContext>();
 
-            // Seed the data
-            Seeder.SeedData(dbContext);
-        }
+        //    // Seed the data
+        //    Seeder.SeedData(dbContext);
+        //}
         // Configure the HTTP request pipeline.
         if(app.Environment.IsDevelopment())
         {
@@ -205,17 +205,17 @@ public class Program
         app.UseHttpsRedirection();
         app.UseCors();
 
-        app.UseHangfireDashboard();
-        RecurringJob.AddOrUpdate<IGroupWalletFundingServices>(
-        "Group_Savings",
-        x => x.GroupAuto(),
-        Cron.Minutely // Or use another Cron expression or TimeSpan interval for the schedule
-        );
-        RecurringJob.AddOrUpdate<IAutoTargetFund>(
-       "Personal_Savings",
-       x => x.AutoTarget(),
-       Cron.Minutely // Or use another Cron expression or TimeSpan interval for the schedule
-       );
+        //app.UseHangfireDashboard();
+       // RecurringJob.AddOrUpdate<IGroupWalletFundingServices>(
+       // "Group_Savings",
+       // x => x.GroupAuto(),
+       // Cron.Minutely // Or use another Cron expression or TimeSpan interval for the schedule
+       // );
+       // RecurringJob.AddOrUpdate<IAutoTargetFund>(
+       //"Personal_Savings",
+       //x => x.AutoTarget(),
+       //Cron.Minutely // Or use another Cron expression or TimeSpan interval for the schedule
+       //);
 
 
         app.UseRouting();
