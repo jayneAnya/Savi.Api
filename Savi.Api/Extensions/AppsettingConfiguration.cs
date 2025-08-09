@@ -9,22 +9,22 @@ namespace Savi.Api.Extensions
 			var mailSettings = new EmailSettings();
 			var cloudinarySettings = new CloudinarySettings();
 
-			if (env.IsProduction())
-			{
-				mailSettings.Host = Environment.GetEnvironmentVariable("MailHost")!;
-				mailSettings.Port = int.Parse(Environment.GetEnvironmentVariable("MailPort")!);
-				mailSettings.DisplayName = Environment.GetEnvironmentVariable("MailDisplayName")!;
-				mailSettings.Username = Environment.GetEnvironmentVariable("MailUsername")!;
-				mailSettings.Password = Environment.GetEnvironmentVariable("MailPassword")!;
-				cloudinarySettings.ApiKey = Environment.GetEnvironmentVariable("ApiKey")!;
-				cloudinarySettings.ApiSecret = Environment.GetEnvironmentVariable("ApiSecret")!;
-				cloudinarySettings.CloudName = Environment.GetEnvironmentVariable("CloudName")!;
-			}
-			else
-			{
-				config.GetSection("EmailSettings").Bind(mailSettings);
+			//if (env.IsProduction())
+			//{
+			//	mailSettings.Host = Environment.GetEnvironmentVariable("MailHost")!;
+			//	mailSettings.Port = int.Parse(Environment.GetEnvironmentVariable("MailPort")!);
+			//	mailSettings.DisplayName = Environment.GetEnvironmentVariable("MailDisplayName")!;
+			//	mailSettings.Username = Environment.GetEnvironmentVariable("MailUsername")!;
+			//	mailSettings.Password = Environment.GetEnvironmentVariable("MailPassword")!;
+			//	cloudinarySettings.ApiKey = Environment.GetEnvironmentVariable("ApiKey")!;
+			//	cloudinarySettings.ApiSecret = Environment.GetEnvironmentVariable("ApiSecret")!;
+			//	cloudinarySettings.CloudName = Environment.GetEnvironmentVariable("CloudName")!;
+			//}
+			//else
+			//{
+			config.GetSection("EmailSettings").Bind(mailSettings);
 				config.Bind(nameof(cloudinarySettings), cloudinarySettings);
-			}
+			//}
 
 			services.AddSingleton(mailSettings);
 		}
